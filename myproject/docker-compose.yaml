@@ -17,15 +17,15 @@ services:
       - pgdb
   pgdb:
     image: postgres
-    container_name: pgdb
+    restart: always
     environment:
       - POSTGGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  Nocodb:
-    image: nocodb
-    container_name: nocodb
-    environment:
-      - NOCODB_DB=nocodb
-      - NOCODB_USER='krongkan.nfols@gmail.com'
-      - NOCODB_PASSWORD='Nocodb_Password181243'
+  nocodb:
+    image: nocodb/nocodb:lastest
+    depends_on:
+      - pgdb
+    ports:
+      - "8000:8000"
+    restart: always
